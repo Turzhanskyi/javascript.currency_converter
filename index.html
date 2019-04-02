@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JSExpert - currency converter</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+	      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar box is-paddingless is-marginless" role="navigation" aria-label="main navigation">
+	<div class="navbar-brand">
+		<a class="navbar-item" href="https://www.jsexpert.net/" target="_blank">
+			<img height="32" src="https://www.jsexpert.net/wp-content/uploads/2017/12/Layer-3.png"
+			     alt="Made with JSexpert">
+		</a>
+
+
+	</div>
+
+	<div id="navbarBasicExample" class="navbar-menu">
+		<div class="navbar-end">
+			<a class="navbar-item" href="https://www.jsexpert.net/courses/" target="_blank">
+				КУРСЫ
+			</a>
+
+			<a class="navbar-item" href="https://www.jsexpert.net/vebinars/" target="_blank">
+				ВЕБИНАРЫ
+			</a>
+
+			<a class="navbar-item" href="https://www.jsexpert.net/?register=https://www.jsexpert.net/courses/"
+			   target="_blank">
+				РЕГИСТРАЦИЯ
+			</a>
+
+		</div>
+	</div>
+</nav>
+
+<section class="hero is-medium is-light">
+	<div class="hero-body">
+		<div class="container">
+			<div class="columns">
+				<div class="column is-8-desktop is-offset-2-desktop">
+					<h1 class="title is-2 is-spaced">
+						<span>JSEXPERT</span> - ОНЛАЙН ШКОЛА ОБУЧЕНИЯ FRONTEND
+					</h1>
+					<h2 class="subtitle is-4 has-text-primary">
+						<span class="has-text-yellow">JAVASCRIPT,</span> <span class="has-text-angular">ANGULAR,</span>
+						<span class="has-text-node">NODE.JS</span>
+					</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+
+		<div class="card">
+			<header class="card-header">
+				<p class="card-header-title" id="header">
+				</p>
+			</header>
+
+			<div class="card-content columns is-4 is-multiline">
+				<div class="column is-desktop amount">
+					<div class="control has-icons-left has-icons-right">
+						<input
+							class="input is-large"
+							type="number" value="1"
+							placeholder="Amount"
+							min="1"
+							max="100"
+							id="amount"
+						>
+						<span class="icon is-medium is-left">
+              <i class="far fa-money-bill-alt"></i>
+            </span>
+						<span class="icon is-small is-right">
+              <i class="fas fa-check" id="currencyIcon"></i>
+            </span>
+					</div>
+				</div>
+				<div class="column is-desktop">
+					<div class="columns">
+						<div class="column is-narrow">
+							<div class="control">
+								<div class="select is-large">
+									<select id="fromCurrency"></select>
+								</div>
+							</div>
+						</div>
+						<div class="column is-narrow">
+							<div class="field has-addons">
+								<p class="control">
+									<a class="button is-large is-white is-static" disabled>
+                    <span class="icon is-medium">
+                      <i class="fas fa-exchange-alt"></i>
+                    </span>
+									</a>
+								</p>
+							</div>
+						</div>
+						<div class="column is-narrow">
+							<div class="control">
+								<div class="select is-large">
+									<select id="toCurrency"></select>
+								</div>
+							</div>
+						</div>
+						<div class="column is-narrow">
+							<div class="field has-addons" id="submit">
+								<p class="control">
+									<a class="button is-large is-link">
+										<span class="icon is-medium">
+											<i class="fas fa-arrow-circle-right"></i>
+										</span>
+									</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer class="card-footer">
+				<div class="content is-large" id="result">
+				</div>
+			</footer>
+		</div>
+
+		<div class="card">
+			<header class="card-header card-header-success">
+			</header>
+
+			<div class="card-content columns is-4 is-multiline">
+				<div class="column is-desktop">
+					<div class="columns has-text-centered">
+						<div class="column is-narrow is-full">
+							<p class="is-size-1 has-text-centered has-background-warning box" id="timer">00:00:00</p>
+						</div>
+					</div>
+				</div>
+				<div class="column is-desktop is-custom-centered">
+					<div class="columns">
+						<div class="column is-narrow">
+							<div class="control">
+								<div class="select is-large">
+									<select id="how-to-update">
+										<option value="0">Никогда</option>
+										<option value="3">Через каждые 3 минуты</option>
+										<option value="5">Через каждые 5 минут</option>
+										<option value="10">Через каждые 10 минут</option>
+										<option value="60">Через каждые 60 минут</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="column is-narrow">
+							<div class="field has-addons">
+								<p class="control">
+									<a class="button is-large is-link" id="start-update">
+										<span class="icon is-medium">
+											<i class="fas fa-clock" id="start-icon"></i>
+										</span>
+									</a>
+								</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<footer class="card-footer card-footer-success" id="timer-footer"></footer>
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="columns">
+			<div class="column is-8-desktop is-offset-2-desktop">
+				<p>
+					<strong class="has-text-weight-semibold">
+						<a href="https://www.jsexpert.net/"><span class="is-primary">JSEXPERT</span> - ОНЛАЙН ШКОЛА
+							ОБУЧЕНИЯ FRONTEND</a>
+					</strong>
+				</p>
+				<p style="margin-top: 1rem;">
+					<a href="https://www.jsexpert.net/">
+						<img
+										style="max-height: 100px"
+										src="https://www.jsexpert.net/wp-content/uploads/2017/12/Layer-3.png"
+										alt="Made with JSexpert"
+						>
+					</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</footer>
+<script type="text/javascript" src="vendor/js/moment-with-locales.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<!--<script type="text/javascript" src="js/timer-es6.js"></script>-->
+<script type="text/javascript" src="js/timer.js"></script>
+</body>
+</html>
