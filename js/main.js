@@ -20,4 +20,30 @@ document.addEventListener("DOMContentLoaded", () => {
     let currencyRatesData = {};
     let bases = [];
 
+    function getDataFromApi() {
+        bases = [];
+        Promise.all(fromBases.map(base => getCurrencyRateData(base))).then(values => {
+            values.forEach(data => {
+                bases.push(data.base);
+                currencyRatesData[data.base] = data.rates;
+            });
+
+            currencyRatesData.date = values[0].date;
+
+            renderDate(currencyRatesData.date);
+            makeFromSelectors();
+        });
+    }
+
+    function getCurrencyRateData(base) {
+        return fetch(`${apiUrl}${base}`).then(
+            res => res.json()
+        );
+    }
+
+    function renderDate(date) {
+        header.innerText = `Согласно курсу валют на ${moment(date).locale('ru').format('LL')}`;
+    }
+
+
 });
