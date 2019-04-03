@@ -20,6 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let currencyRatesData = {};
     let bases = [];
 
+
+    function getCurrencyRateData(base) {
+        return fetch(`${apiUrl}${base}`).then(
+            res => res.json()
+        );
+    }
+
     function getDataFromApi() {
         bases = [];
         Promise.all(fromBases.map(base => getCurrencyRateData(base))).then(values => {
@@ -35,15 +42,38 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function getCurrencyRateData(base) {
-        return fetch(`${apiUrl}${base}`).then(
-            res => res.json()
-        );
+    function makeFromSelectors() {
+        let headBases = [];
+        let tailBases = [];
+        bases.forEach(base => {
+            if (base === defaultBase) {
+                headBases.push(base);
+            }  else  {
+                tailBases.push(base);
+            }
+        });
+
+        const sortedBases = headBases.concat(tailBases);
+
+        renderOptions(sortedBases, fromCurrency);
+
+        // setCurrencyIcon(sortedBases[0]);
+        // makeToSelectors(sortedBases[0]);
+    }
+
+
+    function renderOptions(optionsList, target) {
+        let template = '';
+        optionsList.forEach(option => {
+            template += `<option value="${option}">${option}</option>`;
+        });
+        target.innerHTML = template;
     }
 
     function renderDate(date) {
         header.innerText = `Согласно курсу валют на ${moment(date).locale('ru').format('LL')}`;
     }
 
+    getDataFromApi()
 
 });
