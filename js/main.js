@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderOptions(sortedBases, fromCurrency);
 
         setCurrencyIcon(sortedBases[0]);
-        // makeToSelectors(sortedBases[0]);
+        makeToSelectors(sortedBases[0]);
     }
 
 
@@ -96,6 +96,22 @@ document.addEventListener("DOMContentLoaded", () => {
         while (classList.length > 0) {
             classList.remove(classList.item(0));
         }
+    }
+
+    function makeToSelectors(base) {
+        let headKeys = [];
+        let tailKeys = [];
+
+        Object.keys(currencyRatesData[base]).forEach(key => {
+            if (bases.indexOf(key) >= 0) {
+                headKeys.push(key)
+            } else {
+                tailKeys.push(key)
+            }
+        });
+
+        const sortedKeys = headKeys.concat(tailKeys);
+        renderOptions(sortedKeys, toCurrency);
     }
 
     function renderDate(date) {
