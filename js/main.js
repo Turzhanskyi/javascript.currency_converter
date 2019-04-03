@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const timerIcon = document.getElementById('start-icon');
     const timerFooter = document.getElementById('timer-footer');
 
+    const timer = new CountDownTimer(display);
+
     let currencyRatesData = {};
     let bases = [];
 
@@ -147,8 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if ((Number.isNaN(amount) === true) || (amount <= 0)) {
             amount = 1;
             amountInput.value = amount;
-        } else if (amount > 100) {
-            amount = 100;
+        } else if (amount > 400) {
+            amount = 400;
             amountInput.value = amount;
         }
     }
@@ -157,6 +159,41 @@ document.addEventListener("DOMContentLoaded", () => {
         target.innerHTML = `<h1 class="is-large">${amount} ${fromCurrency} = ${(amount * factor).toFixed(2)} ${toCurrency}</h1>`
     }
 
+    function startUpdateHandler() {
+
+        if (!timer.running) {
+            const duration = parseInt(timerSelector.value, 10);
+
+            if (duration === 0 && !timer.running) {
+                return;
+            }
+
+            showActiveTimer(startUpdate, timerIcon);
+
+            timer.start(duration, () => {
+                getDataFromApi();
+                renderTimerInfo(timerFooter);
+            });
+        } else {
+            timer.stop(() => {
+                showPassiveTimer(startUpdate, timerIcon);
+            });
+        }
+    }
+
+    function showActiveTimer(button, icon) {
+        button.classList.remove('is-link');
+        button.classList.add('is-primary');
+        clearClassList(icon);
+        icon.classList.add('fas', 'fa-stopwatch');
+    }
+
+    function renderTimerInfo(target) {
+        target.innerHTML = `<p class="card-header-title">Курс валют успешно обновлен</p>`;
+        setTimeout(function () {
+            target.innerHTML = '';
+        }, 3000);
+    }
 
 
 
