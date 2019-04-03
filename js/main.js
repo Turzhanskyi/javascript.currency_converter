@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         renderOptions(sortedBases, fromCurrency);
 
-        // setCurrencyIcon(sortedBases[0]);
+        setCurrencyIcon(sortedBases[0]);
         // makeToSelectors(sortedBases[0]);
     }
 
@@ -68,6 +68,34 @@ document.addEventListener("DOMContentLoaded", () => {
             template += `<option value="${option}">${option}</option>`;
         });
         target.innerHTML = template;
+    }
+
+    function setCurrencyIcon(base) {
+        switch (base) {
+            case 'USD':
+                clearClassList(currencyIcon);
+                currencyIcon.classList.add('fas', 'fa-dollar-sign');
+                break;
+            case 'EUR':
+                clearClassList(currencyIcon);
+                currencyIcon.classList.add('fas', 'fa-euro-sign');
+                break;
+            case 'RUB':
+                clearClassList(currencyIcon);
+                currencyIcon.classList.add('fas', 'fa-ruble-sign');
+                break;
+            default:
+                clearClassList(currencyIcon);
+                currencyIcon.classList.add('fas', 'fa-money-bill-wave');
+                break;
+        }
+    }
+
+    function clearClassList(element) {
+        let classList = element.classList;
+        while (classList.length > 0) {
+            classList.remove(classList.item(0));
+        }
     }
 
     function renderDate(date) {
