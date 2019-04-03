@@ -118,6 +118,49 @@ document.addEventListener("DOMContentLoaded", () => {
         header.innerText = `Согласно курсу валют на ${moment(date).locale('ru').format('LL')}`;
     }
 
-    getDataFromApi()
+    function initListeners() {
+        fromCurrency.addEventListener('change', fromCurrencyHandler);
+        calculateButton.addEventListener('click', calculateButtonHandler);
+        startUpdate.addEventListener('click', startUpdateHandler);
+    }
 
+    function fromCurrencyHandler(event) {
+        makeToSelectors(event.target.value);
+        setCurrencyIcon(event.target.value);
+    }
+
+
+    function calculateButtonHandler() {
+        validateAmount(amountInput);
+        const resultData = {};
+        resultData.amount = amountInput.value;
+        resultData.fromCurrency = fromCurrency.value;
+        resultData.toCurrency = toCurrency.value;
+        resultData.factor = currencyRatesData[fromCurrency.value][toCurrency.value];
+
+        renderResult(resultData, result);
+    }
+
+    function validateAmount(amountInput) {
+        let amount = parseInt(amountInput.value, 10);
+
+        if ((Number.isNaN(amount) === true) || (amount <= 0)) {
+            amount = 1;
+            amountInput.value = amount;
+        } else if (amount > 100) {
+            amount = 100;
+            amountInput.value = amount;
+        }
+    }
+
+    function renderResult({amount, fromCurrency, toCurrency, factor}, target) {
+        target.innerHTML = `<h1 class="is-large">${amount} ${fromCurrency} = ${(amount * factor).toFixed(2)} ${toCurrency}</h1>`
+    }
+
+
+
+
+
+    getDataFromApi();
+    initListeners();
 });
