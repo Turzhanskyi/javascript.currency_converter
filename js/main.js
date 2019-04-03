@@ -149,8 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if ((Number.isNaN(amount) === true) || (amount <= 0)) {
             amount = 1;
             amountInput.value = amount;
-        } else if (amount > 400) {
-            amount = 400;
+        } else if (amount > 500) {
+            amount = 500;
             amountInput.value = amount;
         }
     }
@@ -160,10 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function startUpdateHandler() {
-
         if (!timer.running) {
             const duration = parseInt(timerSelector.value, 10);
-
             if (duration === 0 && !timer.running) {
                 return;
             }
@@ -194,9 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
             target.innerHTML = '';
         }, 3000);
     }
-
-
-
 
     getDataFromApi();
     initListeners();
